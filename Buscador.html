@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barra de Búsqueda y Filtros de Productos</title>
+<style>
+  #productList {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<input type="text" id="searchInput" placeholder="Buscar productos">
+<select id="categoryFilter">
+  <option value="">Todos</option>
+  <option value="Sugar Free">Sugar Free</option>
+  <option value="Dorado">Dorado</option>
+  <option value="Club">Club</option>
+  <option value="Santa Fe">Santa Fe</option>
+</select>
+<button onclick="searchProducts()">Buscar</button>
+<div id="productList"></div>
+<script>
+  const products = [
+    { name: "Producto 1", category: "Sugar Free" },
+    { name: "Producto 2", category: "Dorado" },
+    { name: "Producto 3", category: "Club" },
+    { name: "Producto 4", category: "Santa Fe" },
+    { name: "Producto 5", category: "Sugar Free" },
+    { name: "Producto 6", category: "Dorado" },
+    { name: "Producto 7", category: "Club" },
+    { name: "Producto 8", category: "Santa Fe" }
+  ];
+  function searchProducts() {
+    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    const categoryFilter = document.getElementById("categoryFilter").value.toLowerCase();
+    const filteredProducts = products.filter(product =>
+      (product.name.toLowerCase().includes(searchTerm) || searchTerm === "") &&
+      (product.category.toLowerCase().includes(categoryFilter) || categoryFilter === "")
+    );
+
+    displayProducts(filteredProducts);
+  }
+  function displayProducts(products) {
+    const productList = document.getElementById("productList");
+    productList.innerHTML = ""; 
+
+    if (products.length > 0) {
+      productList.style.display = "block"; 
+    } else {
+      productList.style.display = "none"; 
+    }
+    products.forEach(product => {
+      const productDiv = document.createElement("div");
+      productDiv.textContent = `${product.name} - ${product.category}`;
+      productList.appendChild(productDiv);
+    });
+  }
+  displayProducts([]);
+</script>
+
+</body>
+</html>
