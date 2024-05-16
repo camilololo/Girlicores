@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear contraseña segura</title>
+    <script>
+        function validarContraseña() {
+            var contraseña = document.getElementById("password").value;
+            var mensajeError = document.getElementById("mensajeError");
+
+            if (contraseña.length < 8) {
+                mensajeError.innerHTML = "La contraseña debe tener al menos 8 caracteres de longitud.";
+                return false;
+            }
+
+            if (!/[A-Z]/.test(contraseña) || !/[a-z]/.test(contraseña)) {
+                mensajeError.innerHTML = "La contraseña debe incluir al menos una letra mayúscula y una minúscula.";
+                return false;
+            }
+
+            if (!/\d/.test(contraseña)) {
+                mensajeError.innerHTML = "La contraseña debe incluir al menos un número.";
+                return false;
+            }
+
+            if (!/[\W_]/.test(contraseña)) {
+                mensajeError.innerHTML = "La contraseña debe incluir al menos un carácter especial.";
+                return false;
+            }
+
+            mensajeError.innerHTML = ""; 
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Crear contraseña segura</h2>
+    <p>Para garantizar la seguridad de tu cuenta, sigue estas indicaciones al crear tu contraseña:</p>
+    <ul>
+        <li>La contraseña debe tener al menos 8 caracteres de longitud.</li>
+        <li>Utiliza una combinación de letras mayúsculas y minúsculas.</li>
+        <li>Incluye al menos un número y un carácter especial (por ejemplo, !, @, #, $).</li>
+        <li>Evita usar información personal como nombres, fechas de nacimiento o palabras comunes.</li>
+        <li>No compartas tu contraseña con nadie y cámbiala regularmente por motivos de seguridad.</li>
+    </ul>
+    <form action="procesar_registro.php" method="post" onsubmit="return validarContraseña()">
+        <label for="password">Contraseña:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <span id="mensajeError" style="color: red;"></span><br>
+        <input type="submit" value="Crear cuenta">
+    </form>
+</body>
+</html>
